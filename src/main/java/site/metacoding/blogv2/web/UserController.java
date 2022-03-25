@@ -15,11 +15,11 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    @GetMapping("/logout")
-    public String logout() {
-        session.invalidate();
-        return "redirect:/";
-    }
+    // @GetMapping("/logout")
+    // public String logout() {
+    // session.invalidate();
+    // return "redirect:/";
+    // }
 
     @GetMapping("/joinForm")
     public String joinForm() {
