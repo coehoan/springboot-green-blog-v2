@@ -7,6 +7,10 @@ $("#btn-login").click(() => {
     login();
 });
 
+$("#btn-update").click(() => {
+    update();
+});
+
 // 2. 기능
 
 // 로그인 username 기억하기
@@ -17,7 +21,7 @@ function rememberme() {
 }
 rememberme();
 
-// 회원가입 요청 메서드
+// 회원가입 요청 함수
 async function join() {
     // (1) username, password, email, addr 을 찾아서 오브젝트로 만든다.
     let joinDto = {
@@ -47,7 +51,7 @@ async function join() {
     }
 }
 
-// 로그인 요청 메서드
+// 로그인 요청 함수
 async function login() {
 
     let checked = $("#remember").is(":checked");
@@ -74,5 +78,29 @@ async function login() {
         alert("로그인실패");
     }
 
+}
+
+// 업데이트 함수
+async function update() {
+    let id = $("#id").val();
+    let updateDto = {
+        password: $("#password").val(),
+        email: $("#email").val(),
+        addr: $("#addr").val()
+    }
+
+    let response = await fetch(`/s/api/user/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updateDto),
+        headers: {
+            "Content-Type": "application/json; charset=utf-8"
+        }
+    });
+
+    responseParse = await response.json();
+    if (responseParse.code == 1) {
+        alert("수정 완료");
+        location.href = `/s/user/${id}`;
+    } else alert("수정 실패");
 }
 

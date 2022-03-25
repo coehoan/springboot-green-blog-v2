@@ -10,12 +10,29 @@ import site.metacoding.blogv2.domain.user.User;
 import site.metacoding.blogv2.domain.user.UserRepository;
 import site.metacoding.blogv2.web.api.dto.user.JoinDto;
 import site.metacoding.blogv2.web.api.dto.user.LoginDto;
+import site.metacoding.blogv2.web.api.dto.user.UpdateDto;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Transactional
+    public void 회원수정(Integer id, UpdateDto updateDto) {
+        // UPDATE user SET password=?, email=?, addr=? WHERE id=?
+        // 영속화(DB row를 영속성 컨텍스트에 옮김)
+        Optional<User> userOp = userRepository.findById(id);
+
+        if (userOp.isPresent()) {
+            User userEntity = userOp.get();
+            userEntity.setPassword(updateDto.getPassword());
+            userEntity.setEmail(updateDto.getEmail());
+            userEntity.setAddr(updateDto.getAddr());
+        } else {
+            throw new RuntimeException("아이디를 찾을 수 없습니다");
+        }
+    } // 트랜잭션이 걸려있으면 @Service 종료시에 변경감지해서 DB에 업데이트
 
     public User 회원정보(Integer id) {
         Optional<User> userOp = userRepository.findById(id);

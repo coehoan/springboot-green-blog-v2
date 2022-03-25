@@ -1,12 +1,12 @@
 package site.metacoding.blogv2.web.api;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +16,7 @@ import site.metacoding.blogv2.service.UserService;
 import site.metacoding.blogv2.web.api.dto.ResponseDto;
 import site.metacoding.blogv2.web.api.dto.user.JoinDto;
 import site.metacoding.blogv2.web.api.dto.user.LoginDto;
+import site.metacoding.blogv2.web.api.dto.user.UpdateDto;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,6 +24,20 @@ public class UserApiController {
 
     private final UserService userService;
     private final HttpSession session;
+
+    @PutMapping("/s/api/user/{id}")
+    public ResponseDto<?> update(@RequestBody UpdateDto updateDto, @PathVariable Integer id) {
+        userService.회원수정(id, updateDto);
+        return new ResponseDto<>(1, "성공", null);
+    }
+
+    // 앱에서 실행을 위해서
+    // 웹서버에서는 사용 X
+    @GetMapping("/s/api/user/{id}")
+    public ResponseDto<?> userInfo(@PathVariable Integer id) {
+        User userEntity = userService.회원정보(id);
+        return new ResponseDto<>(1, "성공", userEntity);
+    }
 
     @GetMapping("/logout")
     public ResponseDto<?> logout() {
