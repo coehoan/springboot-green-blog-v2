@@ -27,7 +27,8 @@ public class UserApiController {
 
     @PutMapping("/s/api/user/{id}")
     public ResponseDto<?> update(@RequestBody UpdateDto updateDto, @PathVariable Integer id) {
-        userService.회원수정(id, updateDto);
+        User userEntity = userService.회원수정(id, updateDto);
+        session.setAttribute("principal", userEntity);
         return new ResponseDto<>(1, "성공", null);
     }
 

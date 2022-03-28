@@ -19,7 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void 회원수정(Integer id, UpdateDto updateDto) {
+    public User 회원수정(Integer id, UpdateDto updateDto) {
         // UPDATE user SET password=?, email=?, addr=? WHERE id=?
         // 영속화(DB row를 영속성 컨텍스트에 옮김)
         Optional<User> userOp = userRepository.findById(id);
@@ -29,6 +29,7 @@ public class UserService {
             userEntity.setPassword(updateDto.getPassword());
             userEntity.setEmail(updateDto.getEmail());
             userEntity.setAddr(updateDto.getAddr());
+            return userEntity;
         } else {
             throw new RuntimeException("아이디를 찾을 수 없습니다");
         }
