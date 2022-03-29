@@ -27,6 +27,12 @@ public class UserApiController {
 
     @PutMapping("/s/api/user/{id}")
     public ResponseDto<?> update(@RequestBody UpdateDto updateDto, @PathVariable Integer id) {
+
+        User principal = (User) session.getAttribute("principal");
+        if (principal.getId() != id) {
+            throw new RuntimeException("권한이 없습니다.");
+        }
+
         User userEntity = userService.회원수정(id, updateDto);
         session.setAttribute("principal", userEntity);
         return new ResponseDto<>(1, "성공", null);

@@ -9,9 +9,6 @@ import site.metacoding.blogv2.config.filter.MyFilter2;
 
 //@Configuration
 public class FilterConfig {
-    public FilterConfig() {
-        System.out.println("필터 설정파일 IoC 컨테이너 등록완료");
-    }
 
     @Bean // IoC 컨테이너에 띄우기 위해 필요한 어노테이션
     public FilterRegistrationBean<?> filter1() {
