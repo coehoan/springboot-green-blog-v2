@@ -12,8 +12,14 @@ public class PostController {
 
     private final PostService postService;
 
+    @GetMapping("/s/post/writeForm")
+    public String writeForm() {
+
+        return "post/writeForm";
+    }
+
     @GetMapping({ "/", "/post" })
     public String home() {
-        return "/post/list";
+        return "post/list";
     }
 }
