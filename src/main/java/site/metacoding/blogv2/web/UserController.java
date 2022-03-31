@@ -19,9 +19,9 @@ public class UserController {
     private final HttpSession session;
 
     @GetMapping("/s/user/{id}")
-    public String userInfo(@PathVariable Integer id, Model model) {
-        User userEntity = userService.회원정보(id);
-        model.addAttribute("user", userEntity);
+    public String userInfo(@PathVariable Integer id /* , Model model */) {
+        // User userEntity = userService.회원정보(id);
+        // model.addAttribute("user", userEntity);
         return "user/updateForm";
     }
 

@@ -13,13 +13,7 @@ $("#btn-update").click(() => {
 
 // 2. 기능
 
-// 로그인 username 기억하기
-function rememberme() {
-    let cookie = document.cookie.split("=");
-    console.log(cookie[1]);
-    $("#username").val(cookie[1]);
-}
-rememberme();
+
 
 // 회원가입 요청 함수
 async function join() {
@@ -77,7 +71,6 @@ async function login() {
     } else {
         alert("로그인실패");
     }
-
 }
 
 // 업데이트 함수
@@ -103,4 +96,6 @@ async function update() {
         location.href = `/s/user/${id}`;
     } else alert("수정 실패");
 }
+
+
 

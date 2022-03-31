@@ -23,5 +23,15 @@
 
 <!-- 컨테이너 끝 -->
 
+<script>
+  // 로그인 username 기억하기
+  function rememberme() {
+    let cookie = document.cookie.split("=");
+    //console.log(cookie[1]);
+    $("#username").val(cookie[1]);
+  }
+  rememberme();
+</script>
+
 <script src="/js/user.js"></script>
 {{>/layout/footer}}

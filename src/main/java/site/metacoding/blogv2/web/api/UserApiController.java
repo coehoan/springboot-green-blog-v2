@@ -43,6 +43,7 @@ public class UserApiController {
     @GetMapping("/s/api/user/{id}")
     public ResponseDto<?> userInfo(@PathVariable Integer id) {
         User userEntity = userService.회원정보(id);
+        System.out.println(userEntity);
         return new ResponseDto<>(1, "성공", userEntity);
     }
 
