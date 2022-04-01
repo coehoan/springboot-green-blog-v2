@@ -23,6 +23,16 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public Post 상세보기(Integer id) {
+        Optional<Post> postOp = postRepository.findById(id);
+        if (postOp.isPresent()) {
+            return postOp.get();
+        } else {
+            throw new RuntimeException("상세보기 실패");
+        }
+
+    }
+
     public Page<Post> 목록보기(Integer page) {
         PageRequest pr = PageRequest.of(page, 3, Sort.by(Direction.DESC, "id"));
         return postRepository.findAll(pr);
