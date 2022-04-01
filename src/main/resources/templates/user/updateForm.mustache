@@ -32,7 +32,7 @@
         let response = await fetch(`/s/api/user/${id}`);
         let responseParse = await response.json();
 
-        console.log(responseParse);
+        // console.log(responseParse);
 
         if (responseParse.code == 1) {
             $("#username").val(responseParse.data.username);

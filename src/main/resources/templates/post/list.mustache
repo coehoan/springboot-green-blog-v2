@@ -4,19 +4,76 @@
 <div class="container mt-3">
 
     <!-- 게시글 아이템 시작 -->
-    <div class="card mb-3">
-        <div class="card-body">
-            <h4 class="card-title">제목</h4>
-            <a href="/post/1" class="btn btn-dark">상세보기</a>
-        </div>
+    <div id="post-box">
+
     </div>
     <!-- 게시글 아이템 끝 -->
 
     <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="?page=1">이전</a></li>
-        <li class="page-item"><a class="page-link" href="?page=1">다음</a></li>
+        <li id="prev-check" class="page-item"><a id="btn-prev" class="page-link" href="javascript:;">이전</a></li>
+        <li id="next-check" class="page-item"><a id="btn-next" class="page-link" href="javascript:;">다음</a></li>
     </ul>
 
 </div>
 <!-- 컨테이너 끝 -->
+<script>
+    let page = 0;
+
+    $("#btn-next").click(() => {
+        page++;
+        $("#post-box").empty();
+        list();
+    })
+    $("#btn-prev").click(() => {
+        page--;
+        $("#post-box").empty();
+        list();
+    })
+    async function list() {
+
+
+        let response = await fetch(`/api/post?page=${page}`);
+        let responseParse = await response.json();
+
+        if (responseParse.code == 1) {
+            //console.log(responseParse);
+            responseParse.data.content.forEach((post) => {
+                $("#post-box").append(postRender(post));
+            });
+
+        } else {
+            alert("잘못된 접근");
+        }
+
+        let first = responseParse.data.first;
+        let last = responseParse.data.last;
+
+        //console.log("first : " + first);
+        //console.log("last : " + last);
+
+        if (first == true && last == false) {
+            $("#prev-check").addClass("disabled");
+            $("#next-check").removeClass("disabled");
+        } else if (first == false && last == true) {
+            $("#prev-check").removeClass("disabled");
+            $("#next-check").addClass("disabled");
+        } else if (first == false && last == false) {
+            $("#next-check").removeClass("disabled");
+            $("#prev-check").removeClass("disabled");
+        }
+
+    }
+
+    function postRender(post) {
+        return `<div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">${post.title}</h4>
+                <a href="/post/${post.id}" class="btn btn-dark">상세보기</a>
+            </div>
+        </div>`;
+    }
+
+
+    list();
+</script>
 {{>/layout/footer}}

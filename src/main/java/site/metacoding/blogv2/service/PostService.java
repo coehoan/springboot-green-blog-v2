@@ -1,5 +1,14 @@
 package site.metacoding.blogv2.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,7 +23,14 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public Page<Post> 목록보기(Integer page) {
+        PageRequest pr = PageRequest.of(page, 3, Sort.by(Direction.DESC, "id"));
+        return postRepository.findAll(pr);
+    }
+
+    @Transactional
     public void 글쓰기(Post post) {
         postRepository.save(post);
     }
+
 }
