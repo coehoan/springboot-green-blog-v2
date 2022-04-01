@@ -24,11 +24,12 @@ public class CommentService {
 
         if (commentOp.isPresent()) {
             Comment commentEntity = commentOp.get();
+
             if (principal.getId() != commentEntity.getUser().getId()) {
-                throw new RuntimeException("권한이 없습니다.");
+                throw new RuntimeException("권한이 없습니다");
             }
         } else {
-            throw new RuntimeException("해당 댓글이 없습니다.");
+            throw new RuntimeException("해당 댓글이 없습니다");
         }
 
         commentRepository.deleteById(id);

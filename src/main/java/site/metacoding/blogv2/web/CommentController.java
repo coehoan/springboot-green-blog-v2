@@ -23,6 +23,7 @@ public class CommentController {
     // data를 리턴하면 CommentApiController를 원래 만들어줘야함.
     @DeleteMapping("/s/api/comment/{id}")
     public @ResponseBody ResponseDto<?> deleteById(@PathVariable Integer id) {
+
         User principal = (User) session.getAttribute("principal");
 
         commentService.댓글삭제(id, principal);

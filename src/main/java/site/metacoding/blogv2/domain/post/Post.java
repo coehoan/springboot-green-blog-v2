@@ -3,6 +3,7 @@ package site.metacoding.blogv2.domain.post;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -59,7 +60,7 @@ public class Post { // N(드라이빙 테이블, FK의 주인)
     private User user;
 
     @JsonIgnoreProperties({ "post" }) // messageConverter에게 알려주는 어노테이션, post getter는 실행하지마라
-    @OneToMany(mappedBy = "post") // 연관관계의 주인의 변수명, 컬럼생성x 양방향맵핑
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE) // 연관관계의 주인의 변수명, 컬럼생성x 양방향맵핑
     private List<Comment> comments;
 
     @CreatedDate

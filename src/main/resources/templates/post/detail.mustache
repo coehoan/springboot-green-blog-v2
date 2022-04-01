@@ -45,7 +45,7 @@
                     <div class="font-italic">작성자 : {{comment.user.username}}&nbsp;</div>
                     <!--for문 돌면서 id가 계속 생기기 때문에 onclick으로 만들어줌-->
                     {{#auth}}
-                    <button class="badge bg-dark" onclick="deleteComment('{{id}}');">삭제</button>
+                    <button class="badge bg-dark" onclick="deleteComment('{{comment.id}}');">삭제</button>
                     {{/auth}}
                 </div>
             </li>
@@ -59,18 +59,16 @@
 <!-- 컨테이너 끝 -->
 
 <script>
-
     async function deleteComment(commentId) {
         let response = await fetch(`/s/api/comment/${commentId}`, {
             method: "DELETE"
         });
         let responseParse = await response.json();
-
         if (responseParse.code == 1) {
             alert("삭제 성공");
             location.reload(); // ajax + ssr
         } else {
-            alert("삭제 권한이 없습니다.")
+            alert("삭제 권한이 없습니다.");
         }
     }
 </script>
