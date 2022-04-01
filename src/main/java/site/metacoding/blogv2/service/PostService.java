@@ -23,6 +23,11 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    @Transactional
+    public void 글삭제(Integer id) {
+        postRepository.deleteById(id);
+    }
+
     public Post 상세보기(Integer id) {
         Optional<Post> postOp = postRepository.findById(id);
         if (postOp.isPresent()) {
