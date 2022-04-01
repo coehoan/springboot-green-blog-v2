@@ -42,9 +42,9 @@ public class PostApiController {
                 auth = true;
             }
         }
-        DetailResponseDto detailResponseDto = new DetailResponseDto(postEntity, auth);
+        DetailResponseDto detailResponseDto = new DetailResponseDto(postEntity, auth); // comment 없음
 
-        return new ResponseDto<>(1, "성공", detailResponseDto);
+        return new ResponseDto<>(1, "성공", detailResponseDto); // comment생성 - 메세지 컨버터 작동
     }
 
     @GetMapping("/api/post")
